@@ -1,0 +1,15 @@
+# Runtime logs produced by the pipeline (not source)
+diagnoses.log
+swarm_output.log
+pipeline_output.log
+ebpf_output.log
+phase3_output.log
+phase4_output.log
+
+# Python caches
+__pycache__/
+*.pyc
+
+# Local tooling / editor
+.claude/
+.DS_Store

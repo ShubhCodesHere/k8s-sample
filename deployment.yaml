@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: victim-app
+  labels:
+    app: victim-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: victim-app
+  template:
+    metadata:
+      labels:
+        app: victim-app
+    spec:
+      containers:
+        - name: victim-app
+          image: victim-app:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: victim-app
+  labels:
+    app: victim-app
+spec:
+  type: NodePort
+  selector:
+    app: victim-app
+  ports:
+    - port: 8000
+      targetPort: 8000
+      protocol: TCP
