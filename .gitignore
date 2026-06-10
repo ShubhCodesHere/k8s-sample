@@ -13,3 +13,6 @@ __pycache__/
 # Local tooling / editor
 .claude/
 .DS_Store
+
+.env
+.env.*
