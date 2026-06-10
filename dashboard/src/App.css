@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  /* High-contrast SRE Dark Palette */
+  --bg-primary: #09090b; /* zinc-950 */
+  --bg-secondary: #09090b;
+  --bg-card: #121214; /* slightly lighter dark zinc */
+  --bg-card-hover: #18181b;
+  --bg-elevated: #18181b;
+  --border-primary: #222226; /* thin, clean border */
+  --border-accent: #2d2d34;
+  --text-primary: #f4f4f5; /* zinc-100 */
+  --text-secondary: #a1a1aa; /* zinc-400 */
+  --text-muted: #52525b; /* zinc-600 */
+
+  /* SRE Component Colors (solid, high-contrast, professional) */
+  --planner-color: #818cf8; /* light indigo */
+  --planner-bg: rgba(129, 140, 248, 0.04);
+  --planner-border: rgba(129, 140, 248, 0.15);
+  
+  --evaluator-color: #34d399; /* emerald */
+  --evaluator-bg: rgba(52, 211, 153, 0.04);
+  --evaluator-border: rgba(52, 211, 153, 0.15);
+  
+  --executor-color: #60a5fa; /* light blue */
+  --executor-bg: rgba(96, 165, 250, 0.04);
+  --executor-border: rgba(96, 165, 250, 0.15);
+  
+  --tool-color: #fbbf24; /* amber */
+  --tool-bg: rgba(251, 191, 36, 0.04);
+  --tool-border: rgba(251, 191, 36, 0.15);
+  
+  --system-color: #a1a1aa; /* zinc-400 */
+  --system-bg: rgba(161, 161, 170, 0.04);
+  --system-border: rgba(161, 161, 170, 0.15);
+
+  /* Observability status colors */
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #3b82f6;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+/* ---- Animations ---- */
+@keyframes dash {
+  to { stroke-dashoffset: -20; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes typing-dots {
+  0%, 20% { opacity: 0.2; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-2px); }
+  80%, 100% { opacity: 0.2; transform: translateY(0); }
+}
+
+/* ---- Card Style ---- */
+.glass-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: 6px;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.glass-card:hover {
+  border-color: var(--border-accent);
+}
+
+/* ---- Typing indicator ---- */
+.typing-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: var(--planner-bg);
+  border: 1px solid var(--planner-border);
+}
+
+.typing-indicator span {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--planner-color);
+  animation: typing-dots 1.4s infinite;
+}
+
+.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+/* ---- Trace Log Item ---- */
+.agent-msg {
+  animation: fadeInUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ---- Code blocks in agent messages ---- */
+.agent-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  line-height: 1.5;
+  background: #050506;
+  border: 1px solid #1c1c1f;
+  border-radius: 4px;
+  padding: 8px 12px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* ---- Safety check items ---- */
+.safety-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  background: #09090b;
+  font-size: 11px;
+  border: 1px solid #1c1c1f;
+}
+
+.safety-check.passed {
+  border-color: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+}
+
+.safety-check.failed {
+  border-color: rgba(239, 68, 68, 0.15);
+  color: #fca5a5;
+}
+
+/* ---- Badge ---- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border: 1px solid transparent;
+}
+
+.badge-success {
+  background: rgba(16, 185, 129, 0.08);
+  color: var(--success);
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+.badge-danger {
+  background: rgba(239, 68, 68, 0.08);
+  color: var(--danger);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.badge-warning {
+  background: rgba(245, 158, 11, 0.08);
+  color: var(--warning);
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+.badge-info {
+  background: rgba(59, 130, 246, 0.08);
+  color: var(--info);
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+/* ---- SVG edges ---- */
+svg line {
+  transition: all 0.3s ease;
+}
+
+/* ---- Custom Buttons ---- */
+.chaos-btn {
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.chaos-btn:active {
+  transform: scale(0.98);
+}
